@@ -1,0 +1,11 @@
+# FrankenLWJGL
+
+The official Minecraft launcher has minimal support for ARM-based Macs running older versions of Minecraft, in particular due to it using old Intel based versions of native libraries. The Minecraft community has unofficially created builds of these libraries for ARM-based Macs, but it's unlikely Mojang will use these.
+
+With the current design of how Minecraft version files are stored by the launcher, it's impossible to use per-architecture versions of native libraries for LWJGL 2, meaning that computers with non-Intel processors are not able to use the correct native libraries. This also conversely means that if the libraries were changed to use ARM builds, no Intel-based computers would be able to play Minecraft. It seems unlikely that this will be changed anytime soon.
+
+However, MacOS is a special case: native executables or libraries can simply be merged together to create a ["universal binary"](https://www.wikipedia.org/wiki/Universal_binary), able to run natively on any of the original architectures each component was built for. This bash script merges the standard Intel LWJGL 2.9.4 build with [this ARM build](https://github.com/MinecraftMachina/lwjgl/releases/tag/2.9.4-20150209-mmachina.2) made by [MinecraftMachina](https://github.com/MinecraftMachina/), creating a relatively up-to-date build of LWJGL 2 that ARM and Intel Macs could both use natively from the launcher. Note that this is only one of the components needed to run Minecraft natively on ARM, as ARM-based Java and [jinput-platform](https://github.com/r58Playz/jinput-m1) are also required. I plan on adding an option to [RetroWrapper](https://github.com/NeRdTheNed/RetroWrapper) to create an instance using these.
+
+## License / credits
+
+This script is licensed under the CC0 1.0 license (public domain). The builds of LWJGL I've included are distributed under their own license, which I've included as LWJGL-LICENSE.txt. LWJGL build [2.9.4-20150209-mmachina.2](https://github.com/MinecraftMachina/lwjgl/releases/tag/2.9.4-20150209-mmachina.2) is from MinecraftMachina's ARM port of LWJGL. LWJGL build [2.9.4-nightly-20150209](https://libraries.minecraft.net/org/lwjgl/lwjgl/lwjgl-platform/2.9.4-nightly-20150209/lwjgl-platform-2.9.4-nightly-20150209-natives-osx.jar) is from Mojang's library server. The merged build is comprised of both of these.

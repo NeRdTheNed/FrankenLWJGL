@@ -1,0 +1,5 @@
+# Temp files
+_merge/
+
+# MacOS junk files
+.DS_Store
